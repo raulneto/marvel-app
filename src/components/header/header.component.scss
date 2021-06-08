@@ -1,0 +1,24 @@
+header {
+    background-color: #dd2323b8;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 150px;
+}
+
+.search {
+    input {
+        color: #666;
+        border: 0 none;
+        border-radius: 4px;
+        height: 34px;
+        width: 380px;
+        box-shadow: 2px 2px 0 rgba(0,0,0,.3);
+        padding: 5px 13px;
+        box-sizing: border-box;
+        font: italic 14px Arial, sans-serif;
+    }
+}
