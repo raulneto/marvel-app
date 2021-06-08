@@ -1,0 +1,90 @@
+.comics-card {
+    cursor: pointer;
+    position: relative;
+    height: 252px;
+    width: 168px;
+    overflow: hidden;
+
+    &:after {
+        content: '';
+        border: 8px solid transparent;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.5s;
+    }
+    
+    &:hover,
+    &.is-fav {
+        &:after {
+            border-color: #ff0000;
+        }
+    }
+
+    &:hover {
+        .comic-img {
+            opacity: .5;
+            transition: opacity 0.5s;
+        }
+        .info {
+            transform: translateY(0px);
+        }
+    }
+
+    .info {
+        box-sizing: border-box;
+        border-bottom: 8px solid #ff0000;
+        position: absolute;
+        background-color: #fff;
+        bottom: 0;
+        padding: 4px 15px;
+        width: 100%;
+        transform: translateY(100px);
+        transition: transform 0.5s;
+
+        .text {
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 16px;
+            text-transform: uppercase;
+        }
+    }
+
+    .favourite {
+        height: 37px;
+        width: 40px;
+        position: absolute;
+        right: 10px;
+        display: flex;
+        top: 10px;
+        align-items: center;
+        justify-content: center;
+
+        .icon {
+            background: url('../../assets/images/heart_off.png');
+            height: 27px;
+            width: 30px;
+            transition: background-image 0.5s;
+            z-index: 1;
+        }
+
+        &:hover {
+            .icon {
+                background: url('../../assets/images/heart_hover.png');
+            }
+        }
+    }
+
+    &.is-fav {
+        .favourite {
+            .icon {
+                background: url('../../assets/images/heart_on.png');
+                height: 37px;
+                width: 40px;
+            }
+        }
+    }
+}
