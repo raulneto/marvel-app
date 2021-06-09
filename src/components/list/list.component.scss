@@ -1,7 +1,24 @@
 .comics-list {
     padding-top: 165px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     margin: 0 auto;
     max-width: 970px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px auto;
+    max-width: 970px;
+
+    .button {
+        background-color: white;
+        color: #ed2324;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 8px;
+        text-transform: uppercase;
+    }
 }

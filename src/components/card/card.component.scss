@@ -2,6 +2,7 @@
     cursor: pointer;
     position: relative;
     height: 252px;
+    margin: 10px;
     width: 168px;
     overflow: hidden;
 
@@ -17,7 +18,6 @@
         transition: border-color 0.5s;
     }
     
-    &:hover,
     &.is-fav {
         &:after {
             border-color: #ff0000;
@@ -87,4 +87,15 @@
             }
         }
     }
+
+    &.placeholder {
+        animation: placeholder-pulse 1.5s infinite;
+        background-color: rgb(205, 205, 205);
+    }
+}
+
+@keyframes placeholder-pulse {
+    0%   { opacity: .6; }
+    50% { opacity: 1; }
+    100% { opacity: .6; }
 }
