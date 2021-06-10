@@ -8,6 +8,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-query": "^3.16.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.0"
   },
   "devDependencies": {
@@ -19,6 +20,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^5.1.7",
     "node-sass": "4.14.1",
     "typescript": "~3.8.0"
   },

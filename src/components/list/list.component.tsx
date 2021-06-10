@@ -1,18 +1,31 @@
 import * as React from "react";
+import { RouteComponentProps, withRouter } from 'react-router-dom'
 import './list.component.scss';
 import config from "../../app.config.json"
 import { CardComponent, CardPlaceHolder } from "../card/card.component";
-import { getComicsToCard, useComics } from "../hooks/useComics";
+import { useComics } from "../hooks/useComics";
 
-export const ListComponent: React.FC = () =>  {
+const List: React.FC<RouteComponentProps> = (props) =>  {
     const [page, setPage] = React.useState(1);
-    const { isLoading, isFetching, isError, data, error, isPreviousData } = useComics(page);
+    const [character, setCharacter] = React.useState('');
     
+    const { 
+        isLoading, 
+        isFetching, 
+        isError, 
+        data, 
+        error, 
+    } = useComics(page, character);
+    
+    React.useEffect(() => {
+        const query = new URLSearchParams(props.location.search).get('character') || '';
+        setCharacter(query);
+        setPage(1);
+    }, [props.location.search]);
+
     if (isError) {
         return <div>Error: {error?.message}</div>
     }
-
-    console.log(new Array(config.PAGE_LIMIT));
 
     return (
         <React.Fragment>
@@ -42,3 +55,5 @@ export const ListComponent: React.FC = () =>  {
         </React.Fragment>
     )
 }
+
+export const ListComponent = withRouter(List);
