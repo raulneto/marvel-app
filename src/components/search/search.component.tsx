@@ -7,13 +7,13 @@ import { RouteComponentProps, useHistory, withRouter } from 'react-router-dom'
     const [inputValue, setInputValue] = useState(queryParam);
     const history = useHistory();
 
-    function onKeyUp(e: KeyboardEvent<HTMLInputElement>) {
+    const onKeyUp = (e: KeyboardEvent<HTMLInputElement>): void => {
         if (e.key === 'Enter') {
             setQuery(inputValue);
         }
     }
 
-    function onChange(e: ChangeEvent<HTMLInputElement>) {
+    const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setInputValue(e.target.value);
     }
 

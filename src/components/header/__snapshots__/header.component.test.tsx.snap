@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderComponent render 1`] = `
+<header>
+  <div
+    className="logotipo"
+  >
+    <img
+      alt="Marvel App"
+      src="marvel_logo.png"
+    />
+  </div>
+  <div
+    className="search"
+  >
+    <withRouter(Search) />
+  </div>
+</header>
+`;

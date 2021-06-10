@@ -6,7 +6,7 @@ import { SearchComponent } from '../search/search.component'
 export const HeaderComponent: React.FC = () =>  {
     return (
         <header>
-            <div className="logotipo"><img src={logo} /></div>
+            <div className="logotipo"><img alt="Marvel App" src={logo} /></div>
             <div className="search">
                 <SearchComponent />
             </div>

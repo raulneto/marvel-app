@@ -6,7 +6,7 @@ type ICard = {
     image: any;
     isFavourite: boolean;
     setFavouriteComic: (id: string, isFavourite: boolean) => void;
-    title: any;
+    title: string;
 }
 
 export const CardComponent: React.FC<ICard> = (props) =>  {
@@ -15,13 +15,15 @@ export const CardComponent: React.FC<ICard> = (props) =>  {
 
     return (
         <div className={`comics-card ${favouriteClass}`}>
-            <img className="comic-img" src={image} />
-            <a onClick={() => setFavouriteComic(id, isFavourite)} className="favourite"><span className="icon"></span></a>
+            <img alt={title} className="comic-img" src={image} />
+            <button onClick={() => setFavouriteComic(id, isFavourite)} className="favourite">
+                <span className="icon"></span>
+            </button>
             <div className="info">
                 <div className="text">{title}</div>
             </div>
         </div>
-    )
+    );
 }
 
 export const CardPlaceHolder: React.FC = () => {

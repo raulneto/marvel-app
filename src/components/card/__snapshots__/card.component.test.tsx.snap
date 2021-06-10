@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardComponent render 1`] = `
+<div
+  className="comics-card "
+>
+  <img
+    alt="title"
+    className="comic-img"
+    src="image"
+  />
+  <button
+    className="favourite"
+    onClick={[Function]}
+  >
+    <span
+      className="icon"
+    />
+  </button>
+  <div
+    className="info"
+  >
+    <div
+      className="text"
+    >
+      title
+    </div>
+  </div>
+</div>
+`;

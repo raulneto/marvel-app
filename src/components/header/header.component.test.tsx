@@ -2,19 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'
 import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
-import { AppComponent } from './app.component';
+import { HeaderComponent } from './header.component';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient();
 
-test('AppComponent render', () => {
-	const component = shallow(
-		<Router>
-			<QueryClientProvider client={queryClient}>
-				<AppComponent />
-			</QueryClientProvider>
-		</Router>
-	);
-
+test('HeaderComponent render', () => {
+	const component = shallow(<HeaderComponent />);
 	expect(toJson(component)).toMatchSnapshot();
 });

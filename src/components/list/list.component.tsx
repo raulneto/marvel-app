@@ -18,13 +18,19 @@ const List: React.FC<RouteComponentProps> = (props) =>  {
         data, 
         error, 
     } = useComics(page, character);
-    
+
+    /**
+     * Verify if exists a search for character then set on state
+     */
     React.useEffect(() => {
         const query = new URLSearchParams(props.location.search).get('character') || '';
         setCharacter(query);
         setPage(1);
     }, [props.location.search]);
 
+    /**
+     * Verify if exists favourites on localStorage then set on state
+     */
     React.useEffect(() => {
         const favouritesFromStorage = localStorage.getItem('favourites');
 
@@ -33,6 +39,9 @@ const List: React.FC<RouteComponentProps> = (props) =>  {
         }
     }, []);
 
+     /**
+     * Set favourit comic to state and localStorage
+     */
     const setFavouriteComic = (id: string, isFavourite: boolean) => {
         const newFavourites = isFavourite ? 
             favourites.filter((f) => f !== id) : 
@@ -50,13 +59,14 @@ const List: React.FC<RouteComponentProps> = (props) =>  {
         <React.Fragment>
             <div className="comics-list">
                 {isFetching || isLoading || !data ? (
-                    Array.from({ length: config.PAGE_LIMIT }).map(() => <CardPlaceHolder />)
+                    Array.from({ length: config.PAGE_LIMIT }).map((_, i) => <CardPlaceHolder key={i}/>)
                 ) : (
                     data.comics?.map((card: TComicsCard) => {
                         const cardId = card.id;
                         const isFavourite = favourites.find((id) => id === cardId);
                         return (
                             <CardComponent
+                                key={cardId}
                                 id={cardId}
                                 image={card.image} 
                                 isFavourite={!!isFavourite}

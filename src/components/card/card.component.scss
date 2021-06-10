@@ -68,11 +68,15 @@
         top: 10px;
         align-items: center;
         justify-content: center;
+        background: transparent;
+        border: 0 none;
+        padding: 0;
+        cursor: pointer;
 
         .icon {
+            background-repeat: no-repeat;
             height: 27px;
             width: 30px;
-            transition: background-image 0.5s;
             z-index: 1;
         }
 
@@ -86,7 +90,7 @@
     &.is-fav {
         .favourite {
             .icon {
-                background: url('../../assets/images/heart_on.png');
+                background-image: url('../../assets/images/heart_on.png');
                 height: 37px;
                 width: 40px;
             }

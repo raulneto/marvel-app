@@ -24,7 +24,14 @@ const queryConfig = {
     staleTime: Infinity,
 }
 
-const getComics = async (page: number, character?: string) => {
+/**
+ * Fetch Comics Api
+ * If there is a search for character first get all characters id that match with search
+ * Then do a request for comics based on list of characters
+ * @param {number} page - Page number
+ * @param {string} character - Character search string
+ */
+export const getComics = async (page: number, character?: string) => {
     const offset = (page - 1) * comicsPerPage;
     let charactersFilter = '';
 
@@ -50,7 +57,12 @@ const getComics = async (page: number, character?: string) => {
     }
 };
 
-export function useComics(page = 1, character?: string) {
+/**
+ * Query function to return comics from api
+ * @param {number} page - Page number
+ * @param {string} character - Character search string
+ */
+export const useComics = (page = 1, character?: string) => {
     return useQuery<TComics, Error>(
         ['comics', page + (character || '')], 
         () => getComics(page, character), 
@@ -58,6 +70,10 @@ export function useComics(page = 1, character?: string) {
     );
 }
 
+/**
+ * Return list of comics with only necessary data to be shown on list
+ * @param {TComicsApiResponse} data - Api response
+ */
 export const getComicsToCard = (data: TComicsApiResponse): TComicsCard[] =>{
     return data?.data?.results?.map((comic: any) => {
         return {
@@ -68,10 +84,18 @@ export const getComicsToCard = (data: TComicsApiResponse): TComicsCard[] =>{
     })
 }
 
+/**
+ * Return thumbnail path with correct size and extension
+ * @param {TComicsApiThumbnailResponse} thumbnail - Api response
+ */
 const getComicImage = (thumbnail: TComicsApiThumbnailResponse): string => {
     return `${thumbnail.path}/portrait_fantastic.${thumbnail.extension}`;
 }
 
+/**
+ * Return list of characters ID's as string splitted by comma
+ * @param {TComicsApiResponse} data - Api response
+ */
 const getCharactersIdSplitted = (data: TComicsApiResponse): string => {
     return data?.data?.results?.map((c: any) => c.id).join();
 }
