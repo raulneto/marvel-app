@@ -1,18 +1,26 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
+import { RouteComponentProps, useHistory, withRouter } from 'react-router-dom'
 
-export const SearchComponent: React.FC = () => {
-    const [query, setQuery] = useState('');
+ const Search: React.FC<RouteComponentProps> = (props) => {
+    const queryParam = new URLSearchParams(props.location.search).get('character') || '';
+    const [query, setQuery] = useState(queryParam);
+    const [inputValue, setInputValue] = useState(queryParam);
     const history = useHistory();
 
+    function onKeyUp(e: KeyboardEvent<HTMLInputElement>) {
+        if (e.key === 'Enter') {
+            setQuery(inputValue);
+        }
+    }
+
     function onChange(e: ChangeEvent<HTMLInputElement>) {
-        setQuery(e.target.value);
+        setInputValue(e.target.value);
     }
 
     useEffect(() => {
         const params = new URLSearchParams();
 
-        if (query) {
+        if (!!query) {
             params.append('character', query);
         } else {
             params.delete('character');
@@ -21,5 +29,7 @@ export const SearchComponent: React.FC = () => {
         history.push({ search: params.toString() });
     }, [query, history])
 
-    return <input type="text" value={query} onChange={onChange} />
+    return <input type="text" value={inputValue} onChange={onChange} onKeyUp={onKeyUp} placeholder="Character"/>
 }
+
+export const SearchComponent = withRouter(Search);

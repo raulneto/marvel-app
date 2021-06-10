@@ -2,6 +2,12 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import md5 from "md5";
 import config from "../../app.config.json"
+import { 
+    TComics,
+    TComicsApiResponse,
+    TComicsApiThumbnailResponse,
+    TComicsCard,
+} from '../../types/comics.types';
 
 const publicKey = config.MARVEL_PUBLIC_KEY;
 const privateKey = config.MARVEL_PRIVATE_KEY;
@@ -44,33 +50,28 @@ const getComics = async (page: number, character?: string) => {
     }
 };
 
-
 export function useComics(page = 1, character?: string) {
-    return useQuery<any, Error>(
+    return useQuery<TComics, Error>(
         ['comics', page + (character || '')], 
         () => getComics(page, character), 
         queryConfig
     );
 }
 
-
-
-// @TODO Change to const and returned type
-export function getComicsToCard(data: any) {
+export const getComicsToCard = (data: TComicsApiResponse): TComicsCard[] =>{
     return data?.data?.results?.map((comic: any) => {
         return {
+            id: comic.id,
+            image: getComicImage(comic.thumbnail),
             title: comic.title,
-            image: getComicImage(comic.thumbnail)
         };
     })
 }
 
-// @TODO Change to const and returned type
-function getComicImage(thumbnail: any) {
+const getComicImage = (thumbnail: TComicsApiThumbnailResponse): string => {
     return `${thumbnail.path}/portrait_fantastic.${thumbnail.extension}`;
 }
 
-// @TODO Change to const and returned type
-function getCharactersIdSplitted(data: any) {
+const getCharactersIdSplitted = (data: TComicsApiResponse): string => {
     return data?.data?.results?.map((c: any) => c.id).join();
 }

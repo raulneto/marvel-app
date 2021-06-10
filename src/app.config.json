@@ -1,6 +1,6 @@
 {
     "API_URL": "http://gateway.marvel.com/v1/public",
-    "MARVEL_PUBLIC_KEY": "",
-    "MARVEL_PRIVATE_KEY": "",
+    "MARVEL_PUBLIC_KEY": "07e3e205bebd46de31d15ee9a76d85c2",
+    "MARVEL_PRIVATE_KEY": "cb116416e7b6451df4226e110970d61e15dcf22f",
     "PAGE_LIMIT": 20
 }

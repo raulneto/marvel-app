@@ -1,4 +1,3 @@
-import axios from "axios";
 import * as React from "react";
 import { HeaderComponent } from "./header/header.component";
 import { ListComponent } from "./list/list.component";

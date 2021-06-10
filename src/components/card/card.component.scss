@@ -32,7 +32,13 @@
         .info {
             transform: translateY(0px);
         }
+        .favourite {
+            .icon {
+                background-image: url('../../assets/images/heart_off.png');
+            }
+        }
     }
+    
 
     .info {
         box-sizing: border-box;
@@ -64,7 +70,6 @@
         justify-content: center;
 
         .icon {
-            background: url('../../assets/images/heart_off.png');
             height: 27px;
             width: 30px;
             transition: background-image 0.5s;
@@ -73,7 +78,7 @@
 
         &:hover {
             .icon {
-                background: url('../../assets/images/heart_hover.png');
+                background-image: url('../../assets/images/heart_hover.png');
             }
         }
     }

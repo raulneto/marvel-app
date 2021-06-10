@@ -4,11 +4,13 @@ import './list.component.scss';
 import config from "../../app.config.json"
 import { CardComponent, CardPlaceHolder } from "../card/card.component";
 import { useComics } from "../hooks/useComics";
+import { TComicsCard } from "../../types/comics.types";
 
 const List: React.FC<RouteComponentProps> = (props) =>  {
+    const [favourites, setFavourites] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(1);
     const [character, setCharacter] = React.useState('');
-    
+
     const { 
         isLoading, 
         isFetching, 
@@ -23,6 +25,23 @@ const List: React.FC<RouteComponentProps> = (props) =>  {
         setPage(1);
     }, [props.location.search]);
 
+    React.useEffect(() => {
+        const favouritesFromStorage = localStorage.getItem('favourites');
+
+        if (favouritesFromStorage) {
+            setFavourites(JSON.parse(favouritesFromStorage));
+        }
+    }, []);
+
+    const setFavouriteComic = (id: string, isFavourite: boolean) => {
+        const newFavourites = isFavourite ? 
+            favourites.filter((f) => f !== id) : 
+            favourites.concat(id);
+
+        localStorage.setItem('favourites', JSON.stringify(newFavourites));
+        setFavourites(newFavourites);
+    }
+
     if (isError) {
         return <div>Error: {error?.message}</div>
     }
@@ -30,10 +49,22 @@ const List: React.FC<RouteComponentProps> = (props) =>  {
     return (
         <React.Fragment>
             <div className="comics-list">
-                {isFetching || isLoading ? (
+                {isFetching || isLoading || !data ? (
                     Array.from({ length: config.PAGE_LIMIT }).map(() => <CardPlaceHolder />)
                 ) : (
-                    data.comics?.map((card: any) => <CardComponent image={card.image} isFavourite title={card.title} />)
+                    data.comics?.map((card: TComicsCard) => {
+                        const cardId = card.id;
+                        const isFavourite = favourites.find((id) => id === cardId);
+                        return (
+                            <CardComponent
+                                id={cardId}
+                                image={card.image} 
+                                isFavourite={!!isFavourite}
+                                setFavouriteComic={setFavouriteComic} 
+                                title={card.title} 
+                            />
+                        );
+                    })
                 )}
             </div>
             <div className="pagination">
