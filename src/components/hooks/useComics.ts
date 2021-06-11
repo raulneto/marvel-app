@@ -12,10 +12,9 @@ import {
 const publicKey = config.MARVEL_PUBLIC_KEY;
 const privateKey = config.MARVEL_PRIVATE_KEY;
 const time = Date.now();
-const hash = md5(time + privateKey + publicKey);
-
+const currentDate = new Date();
 const comicsPerPage = config.PAGE_LIMIT;
-
+const hash = md5(time + privateKey + publicKey);
 const defaultParams = `&ts=${time}&apikey=${publicKey}&hash=${hash}`
 
 const queryConfig = {
@@ -23,6 +22,15 @@ const queryConfig = {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
 }
+/**
+ * Add zero to date
+ * @param {number} n - Current day or month
+ */
+const addZero = (n: number) => {
+    return n <= 9 ? '0' + n : n;
+}
+
+const currentDateFormatted = (addZero(currentDate.getDate()).toString() + '-' + (addZero(currentDate.getMonth()+1)).toString() + '-' + currentDate.getFullYear());
 
 /**
  * Fetch Comics Api
@@ -46,7 +54,7 @@ export const getComics = async (page: number, character?: string) => {
     }
 
     const { data } = await axios.get(
-        `${config.API_URL}/comics?${defaultParams}&limit=${comicsPerPage}&offset=${offset}&orderBy=-onsaleDate&dateRange=1900-01-01%2C2020-06-09${charactersFilter}`
+        `${config.API_URL}/comics?${defaultParams}&limit=${comicsPerPage}&offset=${offset}&orderBy=-onsaleDate&dateRange=1900-01-01%2C${currentDateFormatted}${charactersFilter}`
     );
 
     const isLastPage = (data.data.total - (offset + comicsPerPage)) <= comicsPerPage;
@@ -99,3 +107,4 @@ const getComicImage = (thumbnail: TComicsApiThumbnailResponse): string => {
 const getCharactersIdSplitted = (data: TComicsApiResponse): string => {
     return data?.data?.results?.map((c: any) => c.id).join();
 }
+

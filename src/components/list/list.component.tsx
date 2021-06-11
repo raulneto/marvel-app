@@ -40,7 +40,7 @@ const List: React.FC<RouteComponentProps> = (props) =>  {
     }, []);
 
      /**
-     * Set favourit comic to state and localStorage
+     * Set favourite comic to state and localStorage
      */
     const setFavouriteComic = (id: string, isFavourite: boolean) => {
         const newFavourites = isFavourite ? 
@@ -52,7 +52,7 @@ const List: React.FC<RouteComponentProps> = (props) =>  {
     }
 
     if (isError) {
-        return <div>Error: {error?.message}</div>
+        return <div className="comics-list">Error: {error?.message}</div>
     }
 
     return (
