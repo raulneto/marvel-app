@@ -28,7 +28,7 @@ npm run test
 
 ## Features
 
-* Retrieving and list all the comics caching every request;
+* Retrieving and list all the comics and caching every request;
 * Pagination;
 * Search comics by Character;
 * Upvoting favourites comics. The favourites comics are been storage in localStorage;
